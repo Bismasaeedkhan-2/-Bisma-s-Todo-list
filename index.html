@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Task 01</title>
+        <link rel="stylesheet" href="style.css">
+        
+    </head>
+    <style>
+
+body{
+    margin: 0;
+    min-width: 300px;
+}
+*{
+    box-sizing: border-box;
+}
+
+.the-header{
+    background-color: rgb(197, 195, 59);
+    padding: 30px 42px;
+    color: white;
+    text-align: center;
+}
+.the-header:after{
+    content: "";
+    display: table;
+    clear: both;
+}
+#the-input{
+    width: 70%;
+    padding: 10px;
+    float: left;
+    font-size: 15px;
+    margin: 0;
+    border: none;
+    border-radius: 0;
+
+
+}
+
+.create-button{
+    padding: 5px;
+    background-color: rgb(42, 42, 203);
+    font-size: 15px;
+    width: 20%;
+    color: white;
+    float: center;
+    text-align: center;
+    cursor: pointer;
+    border-radius: 0;
+    -webkit-transition: 0.4s;
+    -moz-transition: 0.4s;
+    -ms-translation: 0.4s;
+    -o-transition: 0.4s;
+    transition: 0.4s;
+}
+
+.create-button:hover{
+    background-color: #ccc;
+    color: white;
+}
+
+ul{
+    margin: 0;
+    padding: 0;
+}
+ul li{
+    position: relative;
+    background-color: antiquewhite;
+    list-style-type: none;
+    cursor: pointer;
+    padding: 10px 6px 10px 30px;
+    transition: 0.3s;
+
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+ul li:nth-child(odd){
+    background-color: #f6f9f3;
+}
+ul li:hover{
+    background-color: #ddd;
+}
+
+ul li.checked{
+    background: #282828;
+    color: white;
+    text-decoration: line-through;
+}
+
+ul li.checked::before{
+    content: '';
+    position: absolute;
+    border-color: white;
+    border-style: solid;
+    border-width: 0 2px 2px 0;
+    top: 10px;
+    left: 15px;
+    transform: rotate(45deg);
+    height: 15px;
+    width: 10px;
+}
+.close{
+    position: absolute;
+    right: 0;
+    top: 0;
+    padding: 10px 15px 10px 15px;
+}
+
+.the-footer{
+    background-color: rgb(198, 200, 181);
+    padding: 30px 42px;
+    color: white;
+    text-align: center;
+}
+.the-footer:after{
+    content: "";
+    display: table;
+    clear: both;
+}
+.footer{
+    padding: 10px;
+    background-color: rgb(105, 167, 181);
+    font-size: 15px;
+    width: 10%;
+    color: white;
+    float: right;
+    text-align: center;
+    cursor: pointer;
+    border-radius: 0;
+    -webkit-transition: 0.4s;
+    -moz-transition: 0.4s;
+    -ms-translation: 0.4s;
+    -o-transition: 0.4s;
+    transition: 0.4s;
+}
+
+.footer:hover{
+    background-color: #ccc;
+    color: white;
+}
+
+
+    </style>
+    <body>
+        <div class="container">
+
+            <div id="the-header" class="the-header">
+                <h1>Todo List</h1>
+                <input type="text" id="the-input" placeholder="Enter Item">
+                <button onclick="cre">Delete</button>
+                <center>
+                    <button onclick="createNewElement()" class="create-button">Add</button>
+                </center>
+            </div>
+
+            <ul id="the-ul">
+                <li>Write your ToDo List .</li>
+                <li>Write your ToDo List .</li>
+                
+            </ul>
+
+        </div>
+        <div>
+            <footer class="the-footer">
+                <button class="footer">Clear(AC)</button>
+            </footer>
+            
+        </div>
+
+    </body>
+    <script >
+
+let deleteAllBtn = document.querySelector('.footer');
+const addInput = document.querySelector("#the-input");
+var closeButton = document.getElementsByClassName("close");
+
+
+
+
+
+var myList = document.getElementsByTagName("li");
+var index;
+
+for(index = 0; index < myList.length; index++){
+    var aSpanTag = document.createElement("SPAN");
+    var someTxt = document.createTextNode("\u00D7");
+    aSpanTag.className = "close";
+    aSpanTag.appendChild(someTxt);
+    myList[index].appendChild(aSpanTag);
+}
+
+
+for(i = 0; i < closeButton.length; i++){
+    closeButton[i].onclick = function(){
+        var theDiv = this.parentElement;
+        theDiv.style.display = "none";
+    }
+}
+
+const ulList = document.querySelector('ul');
+ulList.addEventListener('click', function(event){
+    if(event.target.tagName === "LI"){
+        event.target.classList.toggle('checked');
+    }
+
+}, false);
+
+function createNewElement(){
+    var li = document.createElement('li');
+    var theInputValue = document.getElementById("the-input").value;
+    var textNode = document.createTextNode(theInputValue);
+    li.appendChild(textNode);
+
+    if(theInputValue === ''){
+        alert("This is required field");
+    }
+    else{
+        document.getElementById("the-ul").appendChild(li);
+    }
+
+    document.getElementById("the-input").value = "";
+
+    var thePanTag = document.createElement("SPAN");
+    var txt = document.createTextNode("\u00D7");
+    thePanTag.className = "close";
+    thePanTag.appendChild(txt);
+    li.appendChild(thePanTag);
+
+    //removing item
+    for(i = 0; i < closeButton.length; i++){
+        closeButton[i].onclick = function(){
+            var theDiv = this.parentElement;
+            theDiv.style.display = "none";
+        }
+    }
+}
+
+
+deleteAllBtn.addEventListener('click', () => {
+
+    //inputs.forEach(inputs => inputs.value = '');
+    document.getElementById('the-ul').innerHTML = '';
+
+    
+})
+ 
+
+addInput.addEventListener('keyup', (event) => {
+    if(event.which === 13){
+        createNewElement();
+    }
+})
+
+
+    </script>
+</html>
